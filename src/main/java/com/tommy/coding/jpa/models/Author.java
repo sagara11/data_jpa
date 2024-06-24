@@ -1,33 +1,19 @@
 package com.tommy.coding.jpa.models;
 
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Data
-@NoArgsConstructor
 @Entity
 public class Author {
     @Id
-    @GeneratedValue(
-//            strategy = GenerationType.SEQUENCE,
-//            generator = "author_id_gen"
-    )
-//    @SequenceGenerator(
-//            name = "author_sequence",
-//            sequenceName = "author_sequence",
-//            allocationSize = 1
-//    )
-//    @TableGenerator(
-//            name = "author_id_gen",
-//            table = "id_generator",
-//            pkColumnName = "id_name",
-//            valueColumnName = "id_value",
-//            allocationSize = 1
-//    )
+    @GeneratedValue
     private Integer id;
     @Column(
             length = 35
@@ -52,4 +38,70 @@ public class Author {
     )
     private LocalDateTime lastModifier;
 
+    public Author() {
+    }
+
+    public Author(String firstName, String lastName, String email, Integer age, LocalDateTime lastModifier, LocalDateTime createdAt) {
+        this.firstName = firstName;
+        this.lastModifier = lastModifier;
+        this.createdAt = createdAt;
+        this.age = age;
+        this.email = email;
+        this.lastName = lastName;
+    }
+
+    public Author(String firstName, String lastName, String email, Integer age) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.age = age;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getLastModifier() {
+        return lastModifier;
+    }
+
+    public void setLastModifier(LocalDateTime lastModifier) {
+        this.lastModifier = lastModifier;
+    }
 }
