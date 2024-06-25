@@ -1,22 +1,22 @@
 package com.tommy.coding.jpa.models;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import java.util.List;
 
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
-public class Course {
-    public Course() {
-    }
-
-    public Course(String title, String description) {
-        this.title = title;
-        this.description = description;
-    }
-
+@SuperBuilder
+@AllArgsConstructor
+@NoArgsConstructor
+public class Course extends BaseEntity {
     @ManyToMany
     @JoinTable(
             name = "courses_authors",
@@ -33,27 +33,7 @@ public class Course {
             mappedBy = "course"
     )
     private List<Section> sections;
-
-    @Id
-    @GeneratedValue
-    private Integer id;
     private String title;
     private String description;
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 }
 

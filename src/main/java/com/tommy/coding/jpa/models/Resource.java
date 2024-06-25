@@ -1,50 +1,30 @@
 package com.tommy.coding.jpa.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 @Entity
 @Data
+@SuperBuilder
+@NoArgsConstructor
+@AllArgsConstructor
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "resource_type")
 public class Resource {
-    public Resource() {
-    }
-
-    public Resource(String name, int size, String url) {
-        this.name = name;
-        this.size = size;
-        this.url = url;
-    }
-
     @Id
     @GeneratedValue
     private Integer id;
+
     private String name;
     private int size;
     private String url;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getSize() {
-        return size;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
+    @OneToOne()
+    @JoinColumn(
+            name = "lecture_id"
+    )
+    private Lecture lecture;
 }

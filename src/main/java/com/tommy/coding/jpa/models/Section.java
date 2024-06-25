@@ -1,22 +1,21 @@
 package com.tommy.coding.jpa.models;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
+
+import java.util.List;
 
 @Data
 @Entity
-public class Section {
-    public Section() {
-    }
-
-    public Section(String name, int sectionOrder) {
-        this.name = name;
-        this.sectionOrder = sectionOrder;
-    }
-
-    @Id
-    @GeneratedValue
-    private Integer id;
+@SuperBuilder
+@EqualsAndHashCode(callSuper = true)
+@AllArgsConstructor
+@NoArgsConstructor
+public class Section extends BaseEntity {
     private String name;
     private int sectionOrder;
 
@@ -26,19 +25,8 @@ public class Section {
     )
     private Course course;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getSectionOrder() {
-        return sectionOrder;
-    }
-
-    public void setSectionOrder(int sectionOrder) {
-        this.sectionOrder = sectionOrder;
-    }
+    @OneToMany(
+            mappedBy = "section"
+    )
+    private List<Lecture> lectures;
 }

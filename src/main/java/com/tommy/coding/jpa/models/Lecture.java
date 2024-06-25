@@ -1,30 +1,29 @@
 package com.tommy.coding.jpa.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
-public class Lecture {
-    public Lecture() {
-    }
-
-    public Lecture(String name) {
-        this.name = name;
-    }
-
-    @Id
-    @GeneratedValue
-    private Integer id;
+@SuperBuilder
+@AllArgsConstructor
+@NoArgsConstructor
+public class Lecture extends BaseEntity {
     private String name;
+    @ManyToOne
+    @JoinColumn(
+            name = "section_id"
+    )
+    private Section section;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    @OneToOne()
+    @JoinColumn(
+            name = "resource_id"
+    )
+    private Resource resource;
 }
